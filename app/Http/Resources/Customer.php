@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class Customer extends JsonResource
 {
+    protected $guarded = [];
     /**
      * Transform the resource into an array.
      *

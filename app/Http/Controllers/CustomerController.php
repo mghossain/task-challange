@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
-use App\Models\phonenumber;
+use App\Services\NumValidation;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -43,15 +43,42 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
         //validate
+        $attributes =  request()->validate([
+            'name' => ['required', 'max:255'],
+            'address' => ['required', 'max:255'],
+            'number' => ['required', 'max:255']
+        ]);
+        //dd($attributes['number']);
+        $validatedResponse = (new NumValidation())->numberValidation($attributes['number']);
 
+        //dd($validatedResponse);
+        if ($validatedResponse->valid == false) {
+            dd(['here']. $validatedResponse);
+            return redirect('/create');
+        }
+        else{
+            $attributes = array_merge(
+                $attributes, [
+                    'number' => $validatedResponse->international_format,
+                    'valid' => $validatedResponse->valid,
+                    'countryCode' => $validatedResponse->country_code,
+                    'countryName' => $validatedResponse->country_name,
+                    'operatorName' => $validatedResponse->carrier
+            ]);
+        }
         //persist
-        Customer::create(request(['name', 'address','number','valid', 'countryCode', 'countryName', 'operatorName']));
-        //dd();
+        $customer = Customer::create($attributes);
+
         //redirect
-        return redirect('/');
+        return [
+            "status" => 201,
+            "data" => $customer
+        ];
+
+
     }
 
     /**
