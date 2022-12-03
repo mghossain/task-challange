@@ -20,20 +20,24 @@ class CustomerFactory extends Factory
         $number = str_replace(array("+"), '', fake()->e164PhoneNumber);
         $validatedResponse = (new NumValidation())->numberValidation($number);
         //dd($validatedResponse->carrier);
+        // return [
+        //     'name' => fake()->name(),
+        //     'address' => fake()->address(),
+        //     'number' => $validatedResponse->international_format,
+        //     'valid' => $validatedResponse->valid,
+        //     'countryCode' => $validatedResponse->country_code,
+        //     'countryName' => $validatedResponse->country_name,
+        //     'operatorName' => $validatedResponse->carrier
+        // ];
+
         return [
             'name' => fake()->name(),
             'address' => fake()->address(),
-            'number' => $validatedResponse->international_format,
-            'valid' => $validatedResponse->valid,
-            'countryCode' => $validatedResponse->country_code,
-            'countryName' => $validatedResponse->country_name,
-            'operatorName' => $validatedResponse->carrier
+            'number' => $number,
+            'valid' => true,
+            'countryCode' => "us",
+            'countryName' => "lb",
+            'operatorName' => 'alfa'
         ];
-
-            // 'number' => $number,
-            // 'valid' => true,
-            // 'countryCode' => "us",
-            // 'countryName' => "lb",
-            // 'operatorName' => 'alfa'
     }
 }

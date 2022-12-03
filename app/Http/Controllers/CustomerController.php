@@ -15,9 +15,16 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('index', [
-            'customers' => Customer::all()
-        ]);
+
+        $customers = Customer::latest()->paginate(10);
+        return [
+            "status" => 200,
+            "data" => $customers
+        ];
+
+        // return view('index', [
+        //     'customers' => Customer::all()
+        // ]);
     }
 
     /**
@@ -39,6 +46,7 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         //validate
+
         //persist
         Customer::create(request(['name', 'address','number','valid', 'countryCode', 'countryName', 'operatorName']));
         //dd();
