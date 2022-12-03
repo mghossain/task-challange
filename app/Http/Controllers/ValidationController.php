@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\phonenumber;
 use App\Services\NumValidation;
 use Exception;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class ValidationController extends Controller
                 'number' => 'This number could not be verified!'
             ]);
         }
-        //dd($validatedResponse->carrier);
+
         return redirect('/');
     }
 }

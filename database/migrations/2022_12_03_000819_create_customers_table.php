@@ -17,7 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('address');
-            $table->string('number')->unique();
+            $table->string('number');
+            $table->boolean('valid');
+            $table->string('countryCode');
+            $table->string('countryName');
+            $table->string('operatorName');
             $table->timestamps();
         });
     }

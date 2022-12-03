@@ -7,6 +7,15 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>Customers</h1>
+
+    <ul>
+        @foreach ($customers as $customer)
+            <li>{{ $customer->name }}</li>
+        @endforeach
+    </ul>
+
+
     <form action="/numvalidate" method="post">
         @csrf
         <label for="number">Phone Number</label>

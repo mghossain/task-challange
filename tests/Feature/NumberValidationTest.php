@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Services\NumValidation;
+use App\Models\Customer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -14,12 +14,13 @@ class NumberValidationTest extends TestCase
     /** @test */
     public function a_customer_has_a_valid_number()
     {
-        $number = fake()->e164PhoneNumber;
+        $this->withoutExceptionHandling();
 
-        $validatedResponse = (new NumValidation())->numberValidation($number);
+        $attributes = Customer::factory()->raw();
 
-        $this->assertEquals($validatedResponse->valid, true);
+        $this->post('/numvalidate', $attributes)->assertRedirect('/');
+
+        $this->assertEquals($attributes['valid'], true);
     }
-
 
 }

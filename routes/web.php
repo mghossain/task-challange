@@ -8,8 +8,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', [CustomerController::class , 'index']);
+Route::resource('/', CustomerController::class);
+
 
 Route::post('numvalidate', ValidationController::class);
-
-

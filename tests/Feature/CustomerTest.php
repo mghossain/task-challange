@@ -14,11 +14,14 @@ class CustomerTest extends TestCase
     /** @test */
     public function a_customer_can_be_created()
     {
-        $attributes = Customer::factory()->create();
+        //$this->withoutExceptionHandling();
 
+        $attributes = Customer::factory()->raw();
 
+        $this->post('/', $attributes)->assertRedirect('/');
 
         $this->assertDatabaseHas('customers', $attributes);
 
+        $this->get('/')->assertSee($attributes['name']);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\phonenumber;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -14,7 +15,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        return view('index', [
+            'customers' => Customer::all()
+        ]);
     }
 
     /**
@@ -35,7 +38,12 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate
+        //persist
+        Customer::create(request(['name', 'address','number','valid', 'countryCode', 'countryName', 'operatorName']));
+        //dd();
+        //redirect
+        return redirect('/');
     }
 
     /**
@@ -46,7 +54,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+
     }
 
     /**

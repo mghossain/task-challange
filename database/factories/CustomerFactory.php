@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Services\NumValidation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,10 +17,23 @@ class CustomerFactory extends Factory
      */
     public function definition()
     {
+        $number = str_replace(array("+"), '', fake()->e164PhoneNumber);
+        $validatedResponse = (new NumValidation())->numberValidation($number);
+        //dd($validatedResponse->carrier);
         return [
             'name' => fake()->name(),
             'address' => fake()->address(),
-            'number' => fake()->e164PhoneNumber
+            'number' => $validatedResponse->international_format,
+            'valid' => $validatedResponse->valid,
+            'countryCode' => $validatedResponse->country_code,
+            'countryName' => $validatedResponse->country_name,
+            'operatorName' => $validatedResponse->carrier
         ];
+
+            // 'number' => $number,
+            // 'valid' => true,
+            // 'countryCode' => "us",
+            // 'countryName' => "lb",
+            // 'operatorName' => 'alfa'
     }
 }
