@@ -12,16 +12,43 @@ class CustomerControllerAPI extends Controller
 
     public function index()
     {
-        $customers = Customer::latest()->paginate(10);
-        return [
-            "status" => 200,
-            "data" => $customers
-        ];
+        if (request()->routeIs('index')) {
+            return view('index', [
+                'customers' => Customer::latest()->paginate(10)
+            ]);
+        }
+        else {
+            $customers = Customer::latest();
+            return [
+                "status" => 200,
+                "data" => $customers
+            ];
+        }
+
+    }
+
+    public function show(Customer $customer)
+    {
+        return view('show', [
+            'customer' => $customer
+        ]);
+    }
+
+    public function create()
+    {
+        return view('create');
+    }
+
+    public function edit(Customer $customer)
+    {
+        return view('edit', [
+            'customer' => $customer
+        ]);
     }
 
     public function store()
     {
-        dd('store');
+        //dd('store');
         //validate
         $attributes =  request()->validate([
             'name' => ['required', 'max:255'],
@@ -30,11 +57,19 @@ class CustomerControllerAPI extends Controller
         ]);
         //dd($attributes['number']);
         $validatedResponse = (new NumValidation())->numberValidation($attributes['number']);
-
-        //dd($validatedResponse);
         if ($validatedResponse->valid == false) {
-            dd(['here'] . $validatedResponse);
-            return redirect('/create');
+            //dd(['here'] . $validatedResponse);
+            if (request()->routeIs('store')) {
+                return redirect('/create');
+            } else {
+                return
+                    [
+                        "NumberVerification" => "Invalid Number",
+                        "status" => 1,
+                        "msg" => "Store Not Successful",
+                        "api" => "API Successful",
+                    ];
+            }
         } else {
             $attributes = array_merge(
                 $attributes,
@@ -51,10 +86,16 @@ class CustomerControllerAPI extends Controller
         $customer = Customer::create($attributes);
 
         //redirect
-        return [
-            "status" => 201,
-            "data" => $customer
-        ];
+        if (request()->routeIs('store')) {
+            return redirect('/users');
+        }
+        else {
+            return [
+                "status" => 201,
+                "api" => "API Successful",
+                "data" => $customer
+            ];
+        }
     }
 
     public function update(Request $request, Customer $customer)
@@ -70,8 +111,21 @@ class CustomerControllerAPI extends Controller
 
         //dd($validatedResponse);
         if ($validatedResponse->valid == false) {
-            dd(['here'] . $validatedResponse);
-            return redirect('/create');
+            //dd(['here'] . $validatedResponse);
+            if (request()->routeIs('update')) {
+                return redirect('users/' . $customer->id . '/edit');
+            }
+            else {
+            return
+            [
+                "NumberVerification" => "Invalid Number",
+                "status" => 1,
+                "data" => $customer,
+                "msg" => "Update Not Successful",
+                "api" => "API Successful",
+            ];
+            }
+
         } else {
             $attributes = array_merge(
                 $attributes,
@@ -88,22 +142,35 @@ class CustomerControllerAPI extends Controller
         $customer->update($attributes);
         //dd($attributes);
         //return redirect('/');
+        if (request()->routeIs('update')) {
+            return redirect('/users');
+        }
+        else {
         return [
             "status" => 201,
             "data" => $customer,
-            "msg" => "Update Successful"
+            "msg" => "Update Successful",
+            "api" => "API Successful"
         ];
+        }
     }
 
     public function destroy(Customer $customer)
     {
+
         $customer->delete();
         //dd($customer);
+        if (request()->routeIs('destroy')) {
+            return redirect('/users');
+        }
+        else {
         return [
             "status" => 1,
             "data" => $customer,
-            "msg" => "Customer deleted successfully"
+            "msg" => "Customer deleted successfully",
+            "api" => "API Successful"
         ];
+        }
     }
 
 }

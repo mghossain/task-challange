@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\Customer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class CustomerTest extends TestCase
@@ -29,11 +28,11 @@ class CustomerTest extends TestCase
     /** @test */
     public function api_can_view_all_customers()
     {
-        $response = Http::get('http://127.0.0.1:8000/api');
+
+        $response = $this->get(route('customers.index'));
 
         $this->assertEquals(200, $response->json()['status']);
 
-        $this->assertEquals(true, $response->successful());
     }
 
     /** @test */
@@ -45,14 +44,9 @@ class CustomerTest extends TestCase
         //     'address' => 'zah',
         //     'number' => '96171686512'
         // ];
-        $response = HTTP::post('http://127.0.0.1:8000/api', $customer);
+        $responseMsg = $this->post(route('customers.store'), $customer)->json()['api'];
 
-        $this->assertEquals(201, $response->json()['status']);
-
-        $this->assertEquals(true, $response->successful());
-
-        //$this->post('/api', $customer)->assertStatus(200);
-
+        $this->assertEquals("API Successful", $responseMsg);
     }
 
     /** @test */
@@ -64,13 +58,12 @@ class CustomerTest extends TestCase
         $customer = [
             'name' => 'new name',
             'address' => 'new address',
-            'number' => '96103686512'
+            'number' => '96171686515'
         ];
+        dd(route('customers.index'), $customer);
+        $responseMsg = $this->patch(route('customers.update', 1), $customer)->json()['api'];
 
-        $responseMsg = $this->patch(route('customers.update', 1), $customer)->json()['msg'];
-
-        $this->assertEquals("Update Successful", $responseMsg);
-
+        $this->assertEquals("API Successful", $responseMsg);
     }
 
     /** @test */
@@ -78,12 +71,9 @@ class CustomerTest extends TestCase
     {
         Customer::factory(5)->create();
 
-        $responseMsg = $this->delete(route('customers.destroy', 1))->json()['msg'];
+        $responseMsg = $this->delete(route('customers.destroy', 1))->json()['api'];
         //dd($responseMsg);
         $this->assertEquals("Customer deleted successfully" , $responseMsg);
-
     }
-
-
 
 }

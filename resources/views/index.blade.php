@@ -1,43 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Customers</h1>
+<x-layout>
+    <x-setting heading="Manage Customers">
 
-    <ul>
-        @foreach ($customers as $customer)
-            <a href="users/{{ $customer->id }}/edit">
-                <li>{{ $customer->name }}</li>
-            </a>
-            <span>
-                <form method="POST" action="{{ route('customers.destroy', $customer->id) }}">
+    <div class="flex flex-col">
+  <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+      <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+
+          <tbody class="bg-white divide-y divide-gray-200">
+            @foreach ($customers as $customer )
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                    <div class="text-sm font-medium text-gray-900">
+                        <a href="/users/{{ $customer->id}}">
+                            {{ $customer->name }}</a>
+                    </div>
+                </div>
+              </td>
+              {{-- <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"></span></td> --}}
+              {{-- <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                  Published
+                </span>
+              </td> --}}
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <a href="users/{{ $customer->id }}/edit" class="text-blue-500 hover:text-blue-600">Edit</a>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <form method="POST" action="{{ route('destroy', $customer->id) }}">
                     @csrf
                     @method('DELETE')
-                    <button type="submit">Delete!</button>
+
+                    <button class="text-xs text-gray-400 hover:text-gray-500">Delete</button>
                 </form>
-            </span>
-        @endforeach
-    </ul>
-    <form method="GET" action="/users/create">
-        <button type="submit">Create a New Customer!</button>
-    </form>
+              </td>
+            </tr>
+            @endforeach
 
-
-    {{-- <form action="/numvalidate" method="post">
-        @csrf
-        <label for="number">Phone Number</label>
-        <input type="number" name="number" id="number" placeholder="Phone Number" required>
-        <button type="submit">Validate</button>
-        @error('number')
-            {{ $message }}
-        @enderror
-    </form> --}}
-
-
-</body>
-</html>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mt-4")>
+      {{ $customers->links() }}
+</div>
+</x-setting>
+</x-layout>

@@ -6,19 +6,18 @@ use App\Http\Controllers\ValidationController;
 use Illuminate\Support\Facades\Route;
 
 
-//Route::resource('/', CustomerControllerAPI::class);
+Route::get('/users', [CustomerControllerAPI::class, 'index'])->name('index');
+Route::get('/users/{customer}', [CustomerControllerAPI::class, 'show'])->name('show');
 
-Route::get('/users', [CustomerController::class, 'index']);
+Route::post('/users/create', [CustomerControllerAPI::class, 'store'])->name('store');
+Route::get('/create', [CustomerControllerAPI::class, 'create'])->name('create');
 
-Route::get('/users/create', [CustomerController::class, 'create']);
-Route::post('/users/create', [CustomerController::class, 'store']);
+Route::get('/users/{customer}/edit', [CustomerControllerAPI::class, 'edit'])->name('edit');
+Route::patch('/users/{customer}', [CustomerControllerAPI::class, 'update'])->name('update');
 
-Route::get('/users/{customer}/edit', [CustomerController::class, 'edit']);
-//Route::patch('/users/{customer}', [CustomerController::class, 'update']);
-
-
-
+Route::delete('/users/{customer}', [CustomerControllerAPI::class, 'destroy'])->name('destroy');
 
 
 
 Route::post('numvalidate', ValidationController::class);
+

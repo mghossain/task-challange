@@ -1,62 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create a new Customer</title>
-</head>
-<body>
-    <h3>Create a new Customer</h3>
-    {{-- <form method="POST" action="/customers/{{ $customer->id }}"> --}}
-    <form method="POST" action="/api/customers/{{ $customer->id }}">
+<x-layout>
+<x-setting heading="Add New Customer">
+
+	<form method="POST" action="{{ route('store') }}">
 	    @csrf
+        <x-form.input name="name" />
+	    <x-form.textarea name="address">{{ old('address') }}</x-form.textarea>
+        <x-form.input name="number"/>
+
+        <x-form.button>Add</x-form.button>
+	</form>
+
+</x-setting>
+</x-layout>
 
 
-        {{-- name --}}
-        <div>
-        <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
-		for="name">
-	        {{ ucwords('name') }}
-        </label>
-        <input class="border border-gray-200 p-2 w-full rounded"
-		name="name"
-		id="name"
-        value="{{ $customer->name }}">
-        @error('name')
-            <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-        @enderror
-        </div>
-
-        {{-- address --}}
-        <div>
-        <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
-		for="address">
-	        {{ ucwords('address') }}
-        </label>
-        <input class="border border-gray-200 p-2 w-full rounded"
-		name="address"
-		id="address"
-        value="{{ $customer->address }}">
-        @error('address')
-            <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-        @enderror
-        </div>
-
-
-        {{-- Number --}}
-        <div class="mt-2">
-            <label for="number">Phone Number</label>
-            <input type="number" name="number" id="number" placeholder="{{ $customer->number }}" required>
-            @error('number')
-                {{ $message }}
-            @enderror
-        </div>
-        <div>
-            <button type="submit">Edit</button>
-        </div>
-
-    </form>
-
-</body>
-</html>
