@@ -15,7 +15,7 @@
                 <li>{{ $customer->name }}</li>
             </a>
             <span>
-                <form method="POST" action="/api/{{ $customer->id }}">
+                <form method="POST" action="{{ route('customers.destroy', $customer->id) }}">
                     @csrf
                     @method('DELETE')
                     <button type="submit">Delete!</button>
@@ -23,6 +23,9 @@
             </span>
         @endforeach
     </ul>
+    <form method="GET" action="/users/create">
+        <button type="submit">Create a New Customer!</button>
+    </form>
 
 
     {{-- <form action="/numvalidate" method="post">

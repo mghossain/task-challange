@@ -91,18 +91,18 @@ class CustomerControllerAPI extends Controller
         return [
             "status" => 201,
             "data" => $customer,
-            "msg" => 'update successful'
+            "msg" => "Update Successful"
         ];
     }
 
     public function destroy(Customer $customer)
     {
         $customer->delete();
-        dd($customer);
+        //dd($customer);
         return [
             "status" => 1,
             "data" => $customer,
-            "msg" => "Blog deleted successfully"
+            "msg" => "Customer deleted successfully"
         ];
     }
 

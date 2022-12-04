@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit</title>
+    <title>Create a new Customer</title>
 </head>
 <body>
-    <h3>Edit: {{ $customer->name }}</h3>
+    <h3>Create a new Customer</h3>
     {{-- <form method="POST" action="/customers/{{ $customer->id }}"> --}}
-    <form method="POST" action="{{ route('customers.update', $customer->id) }}">
+    <form method="POST" action="/api/customers/{{ $customer->id }}">
 	    @csrf
-	    @method('PATCH')
+
 
         {{-- name --}}
         <div>

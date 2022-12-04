@@ -66,14 +66,22 @@ class CustomerTest extends TestCase
             'address' => 'new address',
             'number' => '96103686512'
         ];
-        //$response = HTTP::patch(route('customers.update', 1), $customer);
-        //dd($response->json());
-        //dd(route('customers.update', 3));
-        $this->patch(route('customers.update', 1), $customer)->assertStatus(200);
 
-         //$this->assertEquals(201, $response->json()['status']);
+        $responseMsg = $this->patch(route('customers.update', 1), $customer)->json()['msg'];
 
-         //$this->assertEquals(true, $response->successful());
+        $this->assertEquals("Update Successful", $responseMsg);
+
+    }
+
+    /** @test */
+    public function api_customer_can_be_deleted()
+    {
+        Customer::factory(5)->create();
+
+        $responseMsg = $this->delete(route('customers.destroy', 1))->json()['msg'];
+        //dd($responseMsg);
+        $this->assertEquals("Customer deleted successfully" , $responseMsg);
+
     }
 
 

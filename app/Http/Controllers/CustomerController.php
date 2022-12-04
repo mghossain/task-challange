@@ -14,7 +14,10 @@ class CustomerController extends Controller
             'customers' => Customer::all()
         ]);
     }
-
+    public function create()
+    {
+        return view('create');
+    }
     public function edit(Customer $customer)
     {
         return view('edit', [
