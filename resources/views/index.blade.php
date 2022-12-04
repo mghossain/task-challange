@@ -11,12 +11,21 @@
 
     <ul>
         @foreach ($customers as $customer)
-            <li>{{ $customer->name }}</li>
+            <a href="users/{{ $customer->id }}/edit">
+                <li>{{ $customer->name }}</li>
+            </a>
+            <span>
+                <form method="POST" action="/api/{{ $customer->id }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Delete!</button>
+                </form>
+            </span>
         @endforeach
     </ul>
 
 
-    <form action="/numvalidate" method="post">
+    {{-- <form action="/numvalidate" method="post">
         @csrf
         <label for="number">Phone Number</label>
         <input type="number" name="number" id="number" placeholder="Phone Number" required>
@@ -24,8 +33,8 @@
         @error('number')
             {{ $message }}
         @enderror
+    </form> --}}
 
 
-    </form>
 </body>
 </html>

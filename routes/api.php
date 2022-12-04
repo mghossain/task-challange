@@ -3,9 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CustomerControllerAPI;
 
-Route::resource('/', CustomerController::class);
+Route::resource('/customers', CustomerControllerAPI::class);
 
 /*
 |--------------------------------------------------------------------------

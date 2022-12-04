@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Customer extends JsonResource
+class CustomerAPI extends JsonResource
 {
     protected $guarded = [];
     /**

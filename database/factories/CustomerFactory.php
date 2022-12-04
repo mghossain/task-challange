@@ -34,7 +34,11 @@ class CustomerFactory extends Factory
         return [
             'name' => fake()->name(),
             'address' => fake()->address(),
-            'number' => $number
+            'number' => $number,
+            'valid' => true,
+            'countryCode' =>'lb',
+            'countryName' => 'us',
+            'operatorName' => 'alfa'
         ];
     }
 }

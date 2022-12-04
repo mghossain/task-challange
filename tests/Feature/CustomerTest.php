@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Customer;
-use GuzzleHttp\Client;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
@@ -46,7 +45,7 @@ class CustomerTest extends TestCase
         //     'address' => 'zah',
         //     'number' => '96171686512'
         // ];
-        $response = Http::post('http://127.0.0.1:8000/api', $customer);
+        $response = HTTP::post('http://127.0.0.1:8000/api', $customer);
 
         $this->assertEquals(201, $response->json()['status']);
 
@@ -55,6 +54,28 @@ class CustomerTest extends TestCase
         //$this->post('/api', $customer)->assertStatus(200);
 
     }
+
+    /** @test */
+    public function api_can_update_a_customer()
+    {
+        Customer::factory(2)->create();
+
+        $this->withoutExceptionHandling();
+        $customer = [
+            'name' => 'new name',
+            'address' => 'new address',
+            'number' => '96103686512'
+        ];
+        //$response = HTTP::patch(route('customers.update', 1), $customer);
+        //dd($response->json());
+        //dd(route('customers.update', 3));
+        $this->patch(route('customers.update', 1), $customer)->assertStatus(200);
+
+         //$this->assertEquals(201, $response->json()['status']);
+
+         //$this->assertEquals(true, $response->successful());
+    }
+
 
 
 }

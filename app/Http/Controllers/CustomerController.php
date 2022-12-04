@@ -8,44 +8,23 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-
-        $customers = Customer::latest()->paginate(10);
-        return [
-            "status" => 200,
-            "data" => $customers
-        ];
-
-        // return view('index', [
-        //     'customers' => Customer::all()
-        // ]);
+        return view('index', [
+            'customers' => Customer::all()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function edit(Customer $customer)
     {
-        //
+        return view('edit', [
+            'customer' => $customer
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store()
+    public function update(Request $request, Customer $customer)
     {
-        //validate
+        //dd('update');
         $attributes =  request()->validate([
             'name' => ['required', 'max:255'],
             'address' => ['required', 'max:255'],
@@ -56,73 +35,25 @@ class CustomerController extends Controller
 
         //dd($validatedResponse);
         if ($validatedResponse->valid == false) {
-            dd(['here']. $validatedResponse);
+            dd(['here'] . $validatedResponse);
             return redirect('/create');
-        }
-        else{
+        } else {
             $attributes = array_merge(
-                $attributes, [
+                $attributes,
+                [
                     'number' => $validatedResponse->international_format,
                     'valid' => $validatedResponse->valid,
                     'countryCode' => $validatedResponse->country_code,
                     'countryName' => $validatedResponse->country_name,
                     'operatorName' => $validatedResponse->carrier
-            ]);
+                ]
+            );
         }
-        //persist
-        $customer = Customer::create($attributes);
 
-        //redirect
-        return [
-            "status" => 201,
-            "data" => $customer
-        ];
+        $customer->update($attributes);
 
+        return redirect('/');
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Customer $customer)
-    {
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Customer $customer)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Customer $customer)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Customer $customer)
-    {
-        //
-    }
 }
