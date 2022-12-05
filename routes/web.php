@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerControllerAPI;
-use App\Http\Controllers\ValidationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,5 +17,5 @@ Route::delete('/users/{customer}', [CustomerControllerAPI::class, 'destroy'])->n
 
 
 
-Route::post('numvalidate', ValidationController::class);
+//Route::post('numvalidate', ValidationController::class);
 

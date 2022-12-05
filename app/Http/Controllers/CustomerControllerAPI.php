@@ -6,6 +6,7 @@ use App\Http\Resources\CustomerAPI;
 use App\Models\Customer;
 use App\Services\NumValidation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class CustomerControllerAPI extends Controller
 {
@@ -18,11 +19,13 @@ class CustomerControllerAPI extends Controller
             ]);
         }
         else {
-            $customers = Customer::latest();
-            return [
-                "status" => 200,
-                "data" => $customers
-            ];
+            $customers = Customer::latest()->paginate(10);
+            //dd($customers);
+            return response()->json($customers);
+            // return [
+            //     "status" => 200,
+            //     "data" => $customers
+            // ];
         }
 
     }
@@ -56,19 +59,22 @@ class CustomerControllerAPI extends Controller
             'number' => ['required', 'max:255']
         ]);
         //dd($attributes['number']);
-        $validatedResponse = (new NumValidation())->numberValidation($attributes['number']);
+        $validatedResponse = Http::post('http://localhost:8000/numvalidate', ['number' => $attributes['number']]);
+        $validatedResponse = json_decode($validatedResponse->body());
+        //dd($validatedResponse);
+        //$validatedResponse = (new NumValidation())->numberValidation($attributes['number']);
         if ($validatedResponse->valid == false) {
             //dd(['here'] . $validatedResponse);
             if (request()->routeIs('store')) {
                 return redirect('/create');
             } else {
-                return
-                    [
-                        "NumberVerification" => "Invalid Number",
-                        "status" => 1,
-                        "msg" => "Store Not Successful",
-                        "api" => "API Successful",
-                    ];
+                return $validatedResponse;
+                    // [
+                    //     "NumberVerification" => "Invalid Number",
+                    //     "status" => 1,
+                    //     "msg" => "Store Not Successful",
+                    //     "api" => "API Successful",
+                    // ];
             }
         } else {
             $attributes = array_merge(
@@ -90,11 +96,13 @@ class CustomerControllerAPI extends Controller
             return redirect('/users');
         }
         else {
-            return [
-                "status" => 201,
-                "api" => "API Successful",
-                "data" => $customer
-            ];
+            return response()->json($customer);
+            //return $validatedResponse;
+            // return [
+            //     "status" => 201,
+            //     "api" => "API Successful",
+            //     "data" => $customer
+            // ];
         }
     }
 
@@ -107,7 +115,10 @@ class CustomerControllerAPI extends Controller
             'number' => ['required', 'max:255']
         ]);
         //dd($attributes['number']);
-        $validatedResponse = (new NumValidation())->numberValidation($attributes['number']);
+        $validatedResponse = Http::post('http://localhost:8000/numvalidate', ['number' => $attributes['number']]);
+        $validatedResponse = json_decode($validatedResponse->body());
+
+        //$validatedResponse = (new NumValidation())->numberValidation($attributes['number']);
 
         //dd($validatedResponse);
         if ($validatedResponse->valid == false) {
@@ -116,14 +127,14 @@ class CustomerControllerAPI extends Controller
                 return redirect('users/' . $customer->id . '/edit');
             }
             else {
-            return
-            [
-                "NumberVerification" => "Invalid Number",
-                "status" => 1,
-                "data" => $customer,
-                "msg" => "Update Not Successful",
-                "api" => "API Successful",
-            ];
+                return $validatedResponse;
+            // [
+            //     "NumberVerification" => "Invalid Number",
+            //     "status" => 1,
+            //     "data" => $customer,
+            //     "msg" => "Update Not Successful",
+            //     "api" => "API Successful",
+            // ];
             }
 
         } else {
@@ -146,12 +157,13 @@ class CustomerControllerAPI extends Controller
             return redirect('/users');
         }
         else {
-        return [
-            "status" => 201,
-            "data" => $customer,
-            "msg" => "Update Successful",
-            "api" => "API Successful"
-        ];
+            return response()->json($customer);
+        // return [
+        //     "status" => 201,
+        //     "data" => $customer,
+        //     "msg" => "Update Successful",
+        //     "api" => "API Successful"
+        // ];
         }
     }
 

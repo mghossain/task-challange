@@ -7,9 +7,11 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
+use function PHPUnit\Framework\assertEquals;
+
 class CustomerTest extends TestCase
 {
-    use WithFaker, RefreshDatabase;
+    //use WithFaker, RefreshDatabase;
 
     /** @test */
     public function a_customer_can_be_created()
@@ -28,42 +30,50 @@ class CustomerTest extends TestCase
     /** @test */
     public function api_can_view_all_customers()
     {
+        Customer::factory(10)->create();
 
         $response = $this->get(route('customers.index'));
 
-        $this->assertEquals(200, $response->json()['status']);
+        $response->assertStatus(200);
 
     }
 
     /** @test */
     public function api_can_create_a_customer()
     {
-        $customer = Customer::factory()->raw();
-        // $customer = [
-        //     'name' => 'michael gh',
-        //     'address' => 'zah',
-        //     'number' => '96171686512'
-        // ];
-        $responseMsg = $this->post(route('customers.store'), $customer)->json()['api'];
+        //$this->withoutExceptionHandling();
+        //$customer = Customer::factory()->raw();
+        //dd($customer);
+        $customer = [
+            'name' => 'michael ne',
+            'address' => 'nza',
+            'number' => '96103686517'
+        ];
+        $response = $this->post(route('customers.store'), $customer);
+        $response->assertStatus(200);
+        //dd($response);
+        $this->assertDatabaseHas('customers', $customer);
 
-        $this->assertEquals("API Successful", $responseMsg);
     }
 
     /** @test */
     public function api_can_update_a_customer()
     {
-        Customer::factory(2)->create();
+        //Customer::factory(2)->create();
 
         $this->withoutExceptionHandling();
         $customer = [
-            'name' => 'new name',
-            'address' => 'new address',
-            'number' => '96171686515'
+            'name' => 'new namee',
+            'address' => 'new ad',
+            'number' => '9617515'
         ];
-        dd(route('customers.index'), $customer);
-        $responseMsg = $this->patch(route('customers.update', 1), $customer)->json()['api'];
+        //dd(route('customers.index'), $customer);
+        //dd(route('customers.update', 5));
+        $response = $this->patch(route('customers.update', 6), $customer);
+        //dd($response);
+        $response->assertStatus(200);
 
-        $this->assertEquals("API Successful", $responseMsg);
+        $this->assertDatabaseHas('customers', $customer);
     }
 
     /** @test */
