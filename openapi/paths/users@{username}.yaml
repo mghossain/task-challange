@@ -1,7 +1,7 @@
 
 get:
   servers:
-  - url: 'https://localhost/api/customer'
+  - url: 'https://localhost/api'
 
   tags:
     - CustomerAPI
@@ -9,7 +9,7 @@ get:
   description: Make a Get Request to get all Customers
   operationId: getAllCustomers
   parameters:
-    - name: customer
+    - name: customers
       in: path
       description: All Customers
       required: false
@@ -43,14 +43,14 @@ get:
       description: Customers not found
 post:
   servers:
-    - url: 'https://localhost/api/customer'
+    - url: 'https://localhost/api'
   tags:
     - CustomerAPI
   summary: Add Customer
   description: Add a Customer to the DB.
   operationId: addCustomer
   parameters:
-    - name: customer
+    - name: customers
       in: path
       description: The customer that will be added
       required: true
@@ -73,22 +73,21 @@ post:
 
 put:
   servers:
-    - url: 'https://localhost/api/customer'
+    - url: 'https://localhost/api/customers'
   tags:
     - CustomerAPI
   summary: Update Customer
   description: Update an existing customer
   operationId: updateUser
   parameters:
-    - name: customer
+    - name: customers
       in: path
       description: The Customer that will be updated
       required: true
       schema:
         type: string
   security:
-    - main_auth:
-        - 'write:users'
+    - api_key: []
   responses:
     '200':
       description: OK
@@ -105,14 +104,14 @@ put:
     required: true
 delete:
   servers:
-    - url: 'https://localhost/api/customer'
+    - url: 'https://localhost/api/customers'
   tags:
     - CustomerAPI
   summary: Delete Customer
   description: Delete an existing Customer
   operationId: deleteCustomer
   parameters:
-    - name: customer
+    - name: customers
       in: path
       description: The Customer that will be deleted
       required: true

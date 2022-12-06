@@ -13,6 +13,6 @@ properties:
   Number:
     description: User supplied number
     type: string
-    example: 96171552214
+    example: "96171552214"
   #email:
     #$ref: .\Email.yaml

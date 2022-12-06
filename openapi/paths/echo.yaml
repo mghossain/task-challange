@@ -1,5 +1,6 @@
 post:
-
+  servers:
+    - url: 'https://localhost'
   tags:
     - NumverifyAPI
   summary: NumverifyAPI
@@ -25,7 +26,7 @@ post:
       content:
         application/json:
           schema:
-            type: string
+            type: object
           examples:
             response:
               value: {
@@ -40,12 +41,7 @@ post:
                       "number": "14158586273",
                       "valid": true
                      }
-        application/xml:
-          schema:
-            type: string
-        text/csv:
-          schema:
-            type: string
+
     '400':
       description: Unauthorized
   requestBody:
