@@ -50,9 +50,9 @@ servers:
 
 paths:
   /{customer}:
-    $ref: 'paths/users@{username}.yaml'
+    $ref: './paths/users@{username}.yaml'
   /NumverifyAPI:
-    $ref: paths/echo.yaml
+    $ref: ./paths/echo.yaml
 components:
   securitySchemes:
     main_auth:

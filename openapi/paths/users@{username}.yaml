@@ -28,7 +28,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ..\components\schemas\customers.yaml
+            $ref: ../components/schemas/customers.yaml
           example:
             name: joe
             address: user@example.com
@@ -67,7 +67,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: ..\components\schemas\User.yaml
+          $ref: ../components/schemas/User.yaml
     description: Updated user object
     required: true
 
@@ -100,7 +100,7 @@ put:
     content:
       application/json:
         schema:
-          $ref: ..\components\schemas\User.yaml
+          $ref: ../components/schemas/User.yaml
     description: Updated user object
     required: true
 delete:
@@ -131,6 +131,6 @@ delete:
     content:
       application/json:
         schema:
-          $ref: ..\components\schemas\deleteResponse.yaml
+          $ref: ../components/schemas/deleteResponse.yaml
     description: Updated user object
     required: true
