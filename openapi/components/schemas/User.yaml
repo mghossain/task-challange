@@ -1,19 +1,18 @@
 type: object
 properties:
-  username:
-    description: User supplied username
+  name:
+    description: User supplied customer name
     type: string
-    minLength: 4
+    minLength: 3
     example: John78
-  firstName:
-    description: User first name
+  address:
+    description: User supplied address
     type: string
-    minLength: 1
-    example: John
-  lastName:
-    description: User last name
+    minLength: 3
+    example: lebanon-bekaa
+  Number:
+    description: User supplied number
     type: string
-    minLength: 1
-    example: Smith
-  email:
-    $ref: .\Email.yaml
+    example: 96171552214
+  #email:
+    #$ref: .\Email.yaml

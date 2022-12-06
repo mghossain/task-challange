@@ -1,0 +1,32 @@
+type: object
+properties:
+  name:
+    description: User supplied customer name
+    type: string
+    minLength: 3
+    example: John78
+  address:
+    description: User supplied address
+    type: string
+    minLength: 3
+    example: beirut
+  Number:
+    description: User supplied number
+    type: string
+    example: 96171552214
+  valid:
+    description: Is the number valid
+    type: integer
+    example: 1
+  countryCode:
+    description: returned from NumVerifyAPI
+    type: string
+    example: LB
+  countryName:
+    description: returned from NumVerifyAPI
+    type: string
+    example: us
+  operatorName:
+    description: returned from NumVerifyAPI
+    type: string
+    example: alfa

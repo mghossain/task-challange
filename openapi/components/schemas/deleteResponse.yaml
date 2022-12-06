@@ -1,0 +1,9 @@
+type: object
+properties:
+  message:
+    description: Success Message
+    type: string
+    example: Customer Deleted Succefully
+
+  #email:
+    #$ref: .\Email.yaml

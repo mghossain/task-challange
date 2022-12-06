@@ -1,69 +1,57 @@
 openapi: 3.0.2
 info:
   version: 1.0.0
-  title: Example.com
-  termsOfService: 'https://example.com/terms/'
+  title: Task-Challange
+  termsOfService: ''
   contact:
-    email: contact@example.com
-    url: 'http://example.com/contact'
+    email: mghossain.42@gmail.com
+    url: 'http://localhost'
   license:
-    name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    name: Not Licensed
+    url: '/'
   x-logo:
     url: 'https://redocly.github.io/openapi-template/logo.png'
   description: >
-    This is an **example** API to demonstrate features of OpenAPI specification
+    This is Web App that utilizes Laravel/PostgreSQL as backend and ReactJs as frontend.
 
     # Introduction
 
-    This API definition is intended to to be a good starting point for
-    describing your API in 
+    Task-challange is a Web App that manages Customers and verify
+     their phone numbers using a number valiation API.
 
-    [OpenAPI/Swagger
-    format](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md).
-
-    It also demonstrates features of
-    [create-openapi-repo](https://github.com/Redocly/create-openapi-repo) tool
-    and 
-
-    [Redoc](https://github.com/Redocly/Redoc) documentation engine. So beyond
-    the standard OpenAPI syntax we use a few 
-
-    [vendor
-    extensions](https://github.com/Redocly/Redoc/blob/master/docs/redoc-vendor-extensions.md).
+    [Laravel](https://laravel.com/) is used to build the RESTful APIs and serves as the back-end.
 
 
-    # OpenAPI Specification
+    [PostgreSQL](https://www.postgresql.org/) is used as the database management system.
 
-    The goal of The OpenAPI Specification is to define a standard,
-    language-agnostic interface to REST APIs which
 
-    allows both humans and computers to discover and understand the capabilities
-    of the service without access to source
+    [Reactjs](https://reactjs.org/is) is used as the frontend library for demonstrating the API's functionalities.
 
-    code, documentation, or through network traffic inspection. When properly
-    defined via OpenAPI, a consumer can 
 
-    understand and interact with the remote service with a minimal amount of
-    implementation logic. Similar to what
+    It also demonstrates features of the
+    [numverifyAPI](https://apilayer.com/marketplace/number_verification-api) API.
 
-    interfaces have done for lower-level programming, OpenAPI removes the
-    guesswork in calling the service.
-externalDocs:
-  description: Find out how to create a GitHub repo for your OpenAPI definition.
-  url: 'https://github.com/Rebilly/generator-openapi-repo'
+    # Task-challange Specification
+
+    The goal of The Task-Challange is to build, and render
+    an interface to managing customers' REST APIs .
+
+
+    This documentation contains references to all the APIs used, testing
+    these APIs as well as the functionalities and behaivior.
+
 tags:
-  - name: Echo
-    description: Example echo operations
-  - name: User
-    description: Operations about user
+  - name: NumverifyAPI
+    description: Example NumverifyAPI operations
+  - name: CustomerAPI
+    description: Operations about CustomerAPI
 servers:
-  - url: 'http://example.com/api/v1'
-  - url: 'https://example.com/api/v1'
+  - url: 'https://api.apilayer.com/number_verification/validate?number=number'
+
 paths:
-  '/users/{username}':
+  /{customer}:
     $ref: 'paths/users@{username}.yaml'
-  /echo:
+  /NumverifyAPI:
     $ref: paths/echo.yaml
 components:
   securitySchemes:
@@ -73,12 +61,13 @@ components:
         implicit:
           authorizationUrl: 'http://example.com/api/oauth/dialog'
           scopes:
-            'read:users': read users info
-            'write:users': modify or remove users
+            'show:customers': show all customers
+            'write:user': modify or remove customer
+            'add:customer': add a customer
     api_key:
       type: apiKey
       in: header
       name: api_key
-    basic_auth:
-      type: http
-      scheme: basic
+    #basic_auth:
+      #type: http
+      #scheme: basic

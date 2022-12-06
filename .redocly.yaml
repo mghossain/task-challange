@@ -1,14 +1,21 @@
-# See https://redoc.ly/docs/cli/configuration/ for more information.
-apiDefinitions:
-  main: openapi/openapi.yaml
-lint:
-  extends:
-    - recommended
-  rules:
-    no-unused-components: warning
-referenceDocs:
-  htmlTemplate: ./docs/index.html
-  theme:
-    colors:
-      primary:
-        main: "#32329f"
+organization: Tesk-challange
+extends:
+  - recommended
+apis:
+  customerAPI@v1:
+    root: ./openapi/openapi.yaml
+    rules:
+      no-ambiguous-paths: error
+
+    labels:
+      - external
+    features.openapi:
+      htmlTemplate: ./docs/index.html
+      theme:
+        colors:
+          primary:
+            main: "#32329f"
+      hideLogo: true
+
+features.openapi:
+  schemaExpansionLevel: 2
