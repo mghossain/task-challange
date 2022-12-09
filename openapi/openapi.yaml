@@ -21,8 +21,10 @@ info:
 
     [Laravel](https://laravel.com/) is used to build the RESTful APIs and serves as the back-end.
     This solution contains two seperate laravel apps: CustomerAPI and NumverifyAPI
-    <br>CustomerAPI app contains 4 micro-services responsible for Add, Update, Delete and Get all.
-    <br>NumverifyAPI app conatins 1 micro-services for verifying the number provided by the customer.
+    <br>CustomerAPI micros-service contains APIs responsible for Add, Update, Delete and Get all.
+    <br>[CustomerAPI Github-repo](https://github.com/mghossain/task-challange.git)
+    <br>NumverifyAPI app conatins 1 micro-service for verifying the number provided by the customer.
+    <br>[NumverifyAPI Github-repo](https://github.com/mghossain/NumberValidation.git)
 
 
     [PostgreSQL](https://www.postgresql.org/) is used as the database management system.
@@ -30,6 +32,7 @@ info:
 
     [Reactjs](https://reactjs.org/is) is used as the frontend library for demonstrating the API's functionalities.
     <br>The front-end also demonstrates the use of [tailwind.css](https://tailwindcss.com/) a CSS framework.
+    <br>[Reactjs Github-repo](https://github.com/mghossain/frontEnd-taskChallenge.git)
 
 
     All of the solution is packed into a [Docker](https://docs.docker.com/) image.
@@ -38,6 +41,15 @@ info:
 
     It also demonstrates features of the
     [numverifyAPI](https://apilayer.com/marketplace/number_verification-api) API.
+
+
+    -Parts that should be improved:
+    <br>NumverifyAPI app should use a light-weight framework(Laravel's Lumen)
+    <br>The front-end design and visuals should be improved.
+    <br>-Parts that are efficient:
+    <br>The app is containarized so it can be deployed on any environment.
+    <br> The APIs utilize a workflow convention of validate, persist, return.
+
 
     # Task-challange Specification
 

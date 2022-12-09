@@ -32,9 +32,13 @@ class CustomerControllerAPI extends Controller
 
     public function show(Customer $customer)
     {
-        return view('show', [
-            'customer' => $customer
-        ]);
+        if (request()->routeIs('show')) {
+            return view('show', [
+                'customer' => $customer
+            ]);
+        } else {
+            return response()->json($customer);
+        }
     }
 
     public function create()
@@ -155,5 +159,4 @@ class CustomerControllerAPI extends Controller
         ];
         }
     }
-
 }
