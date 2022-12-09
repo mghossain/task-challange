@@ -45,11 +45,12 @@ class CustomerTest extends TestCase
         //$customer = Customer::factory()->raw();
         //dd($customer);
         $customer = [
-            'name' => 'michael ne',
-            'address' => 'nza',
-            'number' => '96103686517'
+            'name' => 'newwwww',
+            'address' => 'nzafff',
+            'number' => '96103186517'
         ];
         $response = $this->post(route('customers.store'), $customer);
+        dd($response);
         $response->assertStatus(200);
         //dd($response);
         $this->assertDatabaseHas('customers', $customer);

@@ -9,6 +9,7 @@ apis:
 
     labels:
       - external
+
     features.openapi:
       htmlTemplate: ./docs/index.html
       theme:
@@ -16,6 +17,7 @@ apis:
           primary:
             main: "#32329f"
       hideLogo: true
+
 
 features.openapi:
   schemaExpansionLevel: 2

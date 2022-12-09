@@ -20,12 +20,20 @@ info:
      their phone numbers using a number valiation API.
 
     [Laravel](https://laravel.com/) is used to build the RESTful APIs and serves as the back-end.
+    This solution contains two seperate laravel apps: CustomerAPI and NumverifyAPI
+    <br>CustomerAPI app contains 4 micro-services responsible for Add, Update, Delete and Get all.
+    <br>NumverifyAPI app conatins 1 micro-services for verifying the number provided by the customer.
 
 
     [PostgreSQL](https://www.postgresql.org/) is used as the database management system.
 
 
     [Reactjs](https://reactjs.org/is) is used as the frontend library for demonstrating the API's functionalities.
+    <br>The front-end also demonstrates the use of [tailwind.css](https://tailwindcss.com/) a CSS framework.
+
+
+    All of the solution is packed into a [Docker](https://docs.docker.com/) image.
+    <br>Instructions will follow on how to configure and run the container.
 
 
     It also demonstrates features of the
@@ -45,6 +53,8 @@ tags:
     description: Example NumverifyAPI operations
   - name: CustomerAPI
     description: Operations about CustomerAPI
+  - name: Docker-Depolyment
+    description: Instruction on running the docker container
 servers:
   - url: ''
 
@@ -53,6 +63,8 @@ paths:
     $ref: './paths/users@{username}.yaml'
   /numvalidate:
     $ref: ./paths/echo.yaml
+  /docker:
+    $ref: ./paths/docker.yaml
 components:
   securitySchemes:
     main_auth:

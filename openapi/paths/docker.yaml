@@ -1,0 +1,80 @@
+post:
+  servers:
+    - url: 'https://docker.com'
+  tags:
+    - Docker-Depolyment
+  summary: Docker Depolyment
+  description: 1- Instructions on configuring and running the docker container.
+    <br>docker-compose.yml is found in task-challange.
+    This file defines the multi-container Docker application,
+    and is used to configure each app's services.
+    <br>2- Sail is used for interacting with Laravel's default Docker development environment.
+    <br>The Composer dependencies are installed with
+    <br><strong>composer require laravel/sail --dev</strong>
+    <br><strong>php artisan sail:install</strong>
+    <br>This will create the docker-compose.yml and configure the first app CustomerAPI and postgresql.
+    <br>Then add "- laravel.phone-api" under the depends on tag.
+    <br>3- In the CustomerAPI .env file you need to add
+    <br><strong>APP_PORT=8000
+    <br>PHONE_API_HOST=task-challange-laravel.phone-api-1
+    <br>PHONE_API_PORT=80</strong>
+    <br>and edit the following
+    <br><strong>DB_CONNECTION=pgsql
+    <br>DB_HOST=task-challange-pgsql-1
+    <br>DB_PORT=5432
+    <br>DB_DATABASE=task_challange
+    <br>DB_USERNAME=task_challange
+    <br>DB_PASSWORD=task@123</strong>
+    <br>4- Defining the NumverifyAPI app.
+    <br>Note that we are not exposing the NumverifyAPI's port because the CustomerAPI is the only app communicating with it.
+    <br>Add in the docker-composer.yml the following.
+    <br><strong>laravel.phone-api&#58;
+    <br>build&#58;
+    <br>context&#58; ./vendor/laravel/sail/runtimes/8.1
+    <br>     dockerfile&#58; Dockerfile
+    <br>     args&#58;
+    <br>        WWWGROUP&#58; '${WWWGROUP}'
+    <br> image&#58; sail-8.1/app
+    <br> extra_hosts&#58;
+    <br>     - 'host.docker.internal:host-gateway'
+    <br> environment&#58;
+    <br>     WWWUSER&#58; '${WWWUSER}'
+    <br>    LARAVEL_SAIL&#58; 1
+    <br>    XDEBUG_MODE&#58; '${SAIL_XDEBUG_MODE:-off}'
+    <br>    XDEBUG_CONFIG&#58; '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+    <br>volumes&#58;
+    <br>     - "../NumberValidation:/var/www/html"
+    <br> networks&#58;
+    <br>   - sail</strong>
+    <br>5-Defining the ReactJS app
+    <br>We will create a Dockerfile in the react app directory and refernce it in the docker-compose.yml
+    <br>Add in the docker-compose.yml the follwing.
+    <br><strong>test_front&#58;
+    <br>build&#58;
+    <br>context&#58; ../react-website
+    <br>dockerfile&#58; Dockerfile
+    <br>ports&#58;
+    <br>- "3000:3000"
+    <br>container_name&#58; test_front
+    <br>networks&#58;
+    <br>- sail
+    <br>depends_on&#58;
+    <br>- laravel.test</strong>
+    <br>Create the Dockerfile in the react dir with the following.
+    <br><strong>FROM node:18.12.1
+    <br>WORKDIR /usr/src/app/my-app
+    <br>COPY . ./
+    <br>RUN npm install
+    <br>EXPOSE 3000
+    <br>CMD ["npm", "start"]</strong>
+
+
+
+
+              [Docker Documentaion]((https://docs.docker.com/))
+  operationId: Docker-Depolyment
+  security:
+    - api_key: []
+  responses:
+    '200':
+      description: OK
