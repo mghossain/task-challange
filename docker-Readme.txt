@@ -2,15 +2,43 @@
                                         -------------------------------------------
 
 * Description:
-  - Instructions on configuring and running the docker container.
+  - This documentation will be split into 2 parts:
+    I- Required steps to run the docker deployment.
+    II- Informational steps about the configurations and specifications done.
 
-* Files:
+I-
+
+  - In order to run the docker deployment you need to start Sail but before starting Sail,
+  you should ensure that no other web servers or databases are running on your local computer.
+  To start all of the Docker containers defined in your application's docker-compose.yml file,
+  you should execute the up command in the task-challange dir:
+    *./vendor/bin/sail up*
+
+  - Once the application's containers have been started, you may access the project in your
+   web browser at: http://localhost/customers
+
+  - To stop all of the containers, you may simply press Control + C to stop the container's
+  execution or type:
+    *sail down*
+
+
+II-
+
+* Files modified or added:
+
   - docker-compose.yml is found in task-challange dir:
       This file defines the multi-container Docker application, and is used to configure each app's services.
+      The laravel.test container is the primary application container that will be serving the application.
+
   - Dockerfile in the react-website dir:
       This file containes the docker configuration for the react website.
 
-* Step by Step instructions on Installing the dependencies and configurind docker:
+  - .env in the task-challenge dir.
+      This will configure the host and port required to run the app,
+      as well as configuring the Postgresql Database.
+
+
+* Step by Step instructions on Installing the dependencies and configuring docker:
 
   Sail is used for interacting with Laravel's default Docker development environment.
     1- Install the Composer dependencies:
@@ -110,6 +138,3 @@
     CMD ["npm", "start"]
     *
 
-    5- Use
-      *Sail up*
-      In order to run the container in docker.
