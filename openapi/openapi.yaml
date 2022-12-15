@@ -16,8 +16,8 @@ info:
 
     # Introduction
 
-    Task-challange is a Web App that manages Customers and verify
-     their phone numbers using a number valiation API.
+    Task-challange is a Web App that manages Customers and verifies
+     their phone number using a number valiation API.
 
     [Laravel](https://laravel.com/) is used to build the RESTful APIs and serves as the back-end.
     This solution contains two seperate laravel apps: CustomerAPI and NumverifyAPI
@@ -36,11 +36,11 @@ info:
 
 
     All of the solution is packed into a [Docker](https://docs.docker.com/) image.
-    <br>Instructions will follow on how to configure and run the container.
+    <br>Instructions are found in the docker-Readme.txt on how to configure and run the container.
 
 
     It also demonstrates features of the
-    [numverifyAPI](https://apilayer.com/marketplace/number_verification-api) API.
+    [numverifyAPI](https://apilayer.com/marketplace/number_verification-api) API, a 3rd party API.
 
 
     -Parts that should be improved:
@@ -65,8 +65,6 @@ tags:
     description: Example NumverifyAPI operations
   - name: CustomerAPI
     description: Operations about CustomerAPI
-  - name: Docker-Depolyment
-    description: Instruction on running the docker container
 servers:
   - url: ''
 
@@ -75,8 +73,6 @@ paths:
     $ref: './paths/users@{username}.yaml'
   /numvalidate:
     $ref: ./paths/echo.yaml
-  /docker:
-    $ref: ./paths/docker.yaml
 components:
   securitySchemes:
     main_auth:
